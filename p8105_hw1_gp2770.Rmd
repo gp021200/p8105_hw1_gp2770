@@ -18,9 +18,9 @@ data("penguins", package = "palmerpenguins")
 
 ## size of the dataset.
 
-num_rows <- nrow(penguins)
+nrow(penguins)
 
-num_cols <- ncol(penguins)
+ncol(penguins)
 
 ## mean flipper length.
 
