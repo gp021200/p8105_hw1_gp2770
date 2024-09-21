@@ -27,11 +27,11 @@ ncol(penguins)
 mean_flipper_length <- mean(pull(penguins, flipper_length_mm), na.rm = TRUE)
 ```
 
-## short description of the penguins dataset.
+## Short Description of the penguins dataset.
 
 The penguins dataset contains data on the three different species of penguins (Adelie, Gentoo, Chinstrap). The size of the data set includes 344 observations and 8 variables. The dataset provides measurements of the penguins' bill and flipper length along with the body mass and sex. The mean flipper length of the penguins is `r mean_flipper_length` mm.
 
-## scatterplot of flipper_length_mm versus bill_length_mm.
+## Scatterplot of flipper_length_mm versus bill_length_mm.
 
 ```{r}
 
@@ -46,7 +46,7 @@ ggsave("scatter_plot.pdf", height = 4, width = 6)
 ## creating a data frame.
 
 ```{r}
-
+set.seed(123)
 df = tibble(
   vec_numeric = rnorm(10),
   vec_logical = rnorm(10) > 0,
