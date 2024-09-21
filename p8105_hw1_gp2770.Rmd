@@ -1,30 +1,82 @@
 ---
-title: "Untitled"
+title: "Homework 1"
 author: "Gokul Pareek"
 date: "2024-09-21"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+I'm an R Markdown document!
+
+# Problem 1
+
+```{r}
+library (tidyverse)
+
+## load the penguins dataset.
+
+data("penguins", package = "palmerpenguins")
+
+## size of the dataset.
+
+num_rows <- nrow(penguins)
+
+num_cols <- ncol(penguins)
+
+## mean flipper length.
+
+mean_flipper_length <- mean(pull(penguins, flipper_length_mm), na.rm = TRUE)
 ```
 
-## R Markdown
+## short description of the penguins dataset.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+The penguins dataset contains data on the three different species of penguins (Adelie, Gentoo, Chinstrap). The size of the data set includes 344 observations and 8 variables. The dataset provides measurements of the penguins' bill and flipper length along with the body mass and sex. The mean flipper length of the penguins is `r mean_flipper_length` mm.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## scatterplot of flipper_length_mm versus bill_length_mm.
 
-```{r cars}
-summary(cars)
+```{r}
+
+ggplot(data = penguins, aes(x = bill_length_mm, y = flipper_length_mm, 
+  color = species)) + geom_point()
+ggsave("scatter_plot.pdf", height = 4, width = 6)
+
 ```
 
-## Including Plots
+# Problem 2
 
-You can also embed plots, for example:
+## creating a data frame.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+
+df = tibble(
+  vec_numeric = rnorm(10),
+  vec_logical = rnorm(10) > 0,
+  vec_char = c("My","name","is","Gokul","Pareek","and", "I", "like", "to", 
+               "sleep"),
+  vec_factor = factor(c("a","a","a","a","b","b","b","c","c","c"))
+)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## taking the mean of each variable.
+
+```{r}
+
+mean(pull(df, vec_numeric))
+mean(pull(df, vec_logical))
+mean(pull(df, vec_char))
+mean(pull(df, vec_factor))
+
+```
+
+After trying to calculate the mean of each variable, we observe that the mean of the character and the factor vector is a returning NA. This is due to the argument not being numerical or logical. However, we are able to find the mean of the numerical and the logical vector.
+
+## converting the variables from one type to another.
+
+```{r}
+
+as.numeric(pull(df, vec_logical))
+as.numeric(pull(df, vec_char))
+as.numeric(pull(df, vec_factor))
+
+```
+
+Converting the logical vector into numeric just takes TRUE to be 1 and FALSE to be 0. The mean would then be calculated. Converting the character vector into numeric gives an error of multiple NAs which are introduced by coercion. This is because characters don't have a numerical representation. Hence, we won't be able to find a mean. Converting the factor vector into numeric gives us a numeric output which is essentially the integer value of the different levels that we defined. This way we might be able to find the mean. This is the reason why it gives us a error when we try calculating the mean of a character vector (characters can't be converted into numerical values) and factor vector (until you coerce it into numerical values which then gives us a mean).
