@@ -73,9 +73,9 @@ After trying to calculate the mean of each variable, we observe that the mean of
 
 ```{r}
 
-as.numeric(pull(df, vec_logical))
-as.numeric(pull(df, vec_char))
-as.numeric(pull(df, vec_factor))
+vec_logical_numeric <- as.numeric(pull(df, vec_logical))
+vec_char_numeric <- as.numeric(pull(df, vec_char))
+vec_factor_numeric <- as.numeric(pull(df, vec_factor))
 
 ```
 
